@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+.content-container {
+    margin-top: 40px;
+    margin-left: 220px;
+    padding: 20px;
+    background-color: #fff;
+    max-width: calc(100% - 240px);
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.blog-table {
+    width: 95%;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.blog-table thead {
+    background-color: #0078d7;
+    color: #fff;
+    text-align: left;
+}
+
+.blog-table th,
+.blog-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.blog-table th.title,
+.blog-table td:first-child {
+    width: 40%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.blog-table th.switching,
+.blog-table th.edit-cell,
+.blog-table th.delete-cell,
+.blog-table td:nth-child(4),
+.blog-table td:nth-child(5),
+.blog-table td:nth-child(6) {
+    width: 14%;
+}
+
+.blog-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.thumbnail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blog-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.status-published {
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: bold;
+}
+
+.status-unpublished {
+    background-color: #f8d7da;
+    color: #721c24;
+    font-weight: bold;
+}
+
+button {
+    padding: 5px 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #0078d7;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+button.delete-button {
+    background-color: #d9534f;
+}
+
+button.delete-button:hover {
+    background-color: #c9302c;
+}
+
+.delete-cell,
+.edit-cell {
+    text-align: center;
+}

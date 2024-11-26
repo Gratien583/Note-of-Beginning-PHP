@@ -1,0 +1,143 @@
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#toc {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f4f4f4;
+}
+
+#toc h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+#toc ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#toc li {
+    margin-bottom: 5px;
+}
+
+#toc a {
+    display: block;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 8px;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#toc a:hover {
+    background-color: #dddddd;
+}
+
+.mokuji {
+    color: #111111;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-container {
+    margin-left: 320px;
+    flex: 1;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.content {
+    padding: 16px;
+}
+
+#thumbnailPreview {
+    max-width: 300px;
+    max-height: 200px;
+}
+
+#thumbnailPreview img {
+    width: 70%;
+    height: auto;
+}
+
+#content {
+    height: 400px;
+    margin: auto;
+    background-color: white;
+}
+
+.ql-editor {
+    width: 100%;
+}
+
+#toc {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+.ql-snow .ql-editor ul,
+.ql-snow .ql-editor ol {
+    list-style-type: disc;
+    margin-left: 1.5em;
+}
+
+.ql-snow .ql-editor ol {
+    list-style-type: decimal;
+    margin-left: 1.5em;
+}
+
+.ql-snow .ql-editor [style*="text-align: center;"] {
+    text-align: center !important;
+}
+
+.ql-snow .ql-editor [style*="text-align: right;"] {
+    text-align: right !important;
+}
+
+.ql-snow .ql-editor[dir="rtl"] {
+    direction: rtl;
+    text-align: right !important;
+}
+
+.delete-category-button {
+    background-color: transparent;
+    color: red;
+    padding: 3px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 4px;
+}
+
+.CategoryButton {
+    color: #4CAF50;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background-color: transparent;
+    align-items: center;
+}
+
+#Categoryicon {
+    font-size: 24px;
+    vertical-align: bottom;
+    margin-bottom: 2px;
+}
+
+.button-text {
+    font-size: 16px;
+    vertical-align: middle;
+    color: #000000;
+}

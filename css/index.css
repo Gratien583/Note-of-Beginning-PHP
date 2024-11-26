@@ -1,0 +1,45 @@
+  /* サムネイルのスタイル */
+  .thumbnail-container {
+      width: 299px;
+      height: 270px;
+      overflow: hidden;
+      position: relative;
+  }
+
+  .blog-thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--color-border-low-emphasis);
+      box-sizing: border-box;
+  }
+
+  .search-container {
+      text-align: right;
+      margin-right: 40px;
+  }
+
+  .search-button-container {
+      display: inline-block;
+      text-align: right;
+      margin-top: 10px;
+  }
+
+  #search-button {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #007bff;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 16px;
+      line-height: 1;
+      text-align: center;
+  }
+
+  #search-button i {
+      color: #fff;
+  }
