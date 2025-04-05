@@ -27,3 +27,17 @@
 | published  | tinyint(1)   | YES       |      | 0                   |                |
 | created_at | timestamp    | NO        |      | current_timestamp() |                |
 | content    | text         | YES       |      | NULL                |                |
+
+
+## 🔗 関連プロジェクト
+
+- 📄 ローカルストレージ版  
+  [https://github.com/Gratien583/Note-of-Beginning](https://github.com/Gratien583/Note-of-Beginning)  
+
+- ⚛️ React + Supabase (β)：フロントエンドを React、バックエンドに Supabase を使用  
+  [https://github.com/Gratien583/Note-of-Beginning-React-Beta](https://github.com/Gratien583/Note-of-Beginning-React-Beta)  
+
+- 🐘 PHP + MySQL 版：サーバーサイドを PHP、データ保存に MySQL を使用  （このリポジトリ） 
+
+- 🐳 Docker 対応版 (β)  
+  [https://github.com/Gratien583/Note-of-Beginning-Docker](https://github.com/Gratien583/Note-of-Beginning-Docker)
