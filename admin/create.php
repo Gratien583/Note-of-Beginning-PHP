@@ -142,8 +142,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     });
 
-    document.getElementById('addCategoryButton').addEventListener('click', function () {
-      document.getElementById('hiddenContent').value = quillContent.root.innerHTML;
+document.getElementById('blogForm').addEventListener('submit', function () {
+  document.getElementById('hiddenContent').value = quillContent.root.innerHTML;
     var categoryInput = document.getElementById('newCategory');
     var categoryName = categoryInput.value.trim();
 

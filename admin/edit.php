@@ -94,7 +94,7 @@ $selectedCategories = $selectedCategoriesStmt->fetchAll(PDO::FETCH_COLUMN);
             <input type="text" id="title" name="title" style="width: 100%;" value="<?= htmlspecialchars($blog['title']) ?>" required>
 
             <label for="content">本文:</label>
-            <div id="content"><?= htmlspecialchars($blog['content']) ?></div>
+            <div id="content"></div>
             <textarea id="hiddenContent" name="content" style="display:none;"></textarea>
 
             <label for="newCategory">カテゴリ:</label>
@@ -144,6 +144,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 初期値を設定
     quill.root.innerHTML = <?= json_encode($blog['content']) ?>;
+    console.log("content to insert:", <?= json_encode($blog['content']) ?>);
+
 
     // フォーム送信時にQuillの内容をhidden textareaに設定
     document.querySelector('form').addEventListener('submit', function () {

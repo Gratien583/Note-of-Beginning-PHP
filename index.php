@@ -57,8 +57,8 @@ try {
 <body>
 <?php include 'header.php'; ?> <!-- ヘッダーのインポート -->
 
-<div class="content-container" style="padding-top: 50px">
-    <h1>記事一覧</h1>
+<div class="content-container" style="padding-top: 90px">
+
 
     <!-- カテゴリ選択フォーム -->
     <div class="search-container">
