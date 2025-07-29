@@ -8,7 +8,7 @@
 </head>
 <body>
   <header class="header">
-    <a href="index.html">トップ</a>
+    <a href="index.php">トップ</a>
     <a href="login.php">ログイン</a>
     <a href="new_account.php">アカウント新規作成</a>
   </header>
