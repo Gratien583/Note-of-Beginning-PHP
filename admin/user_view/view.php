@@ -63,40 +63,63 @@ if (!$blog) {
     <div class="date"><?= htmlspecialchars($blog['created_at']) ?></div>
 
     <!-- サムネイルを表示 -->
-    <?php if (!empty($blog['thumbnail'])): ?>
-        <img src="<?= htmlspecialchars($blog['thumbnail']) ?>" alt="サムネイル">
-    <?php endif; ?>
+    <?php
+        $thumbnail = $blog['thumbnail'] ?? '';
+        if (!empty($thumbnail)) {
+            if (strpos($thumbnail, 'uploads/') === 0) {
+                $thumbnail = '../../' . $thumbnail;
+            } else {
+                $thumbnail = '../../uploads/' . $thumbnail;
+            }
+        }
+    ?>
+    <img src="<?= htmlspecialchars($thumbnail) ?>" alt="サムネイル">
 
-    <!-- カテゴリを表示 -->
+    <!-- 目次 -->
+    <?php
+        // 目次の生成処理
+        $dom = new DOMDocument();
+        @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $blog['content'], LIBXML_NOERROR);
+        $headings = $dom->getElementsByTagName('*');
+
+        $tocItems = [];
+        foreach ($headings as $heading) {
+            if (in_array($heading->nodeName, ['h1', 'h2'])) {
+                $id = uniqid('heading_');
+                $heading->setAttribute('id', $id);
+                $tocItems[] = [
+                    'id' => $id,
+                    'text' => $heading->nodeValue,
+                    'level' => $heading->nodeName === 'h1' ? 1 : 2
+                ];
+            }
+        }
+        ?>
+
+        <?php if (!empty($tocItems)): ?>
+            <!-- 目次を表示（見出しが1つ以上ある場合） -->
+            <div id="tableOfContents">
+                <p class="mokuji">目次</p>
+                <ul>
+                    <?php foreach ($tocItems as $item): ?>
+                        <li>
+                            <a href="#<?= $item['id'] ?>" style="margin-left: <?= $item['level'] === 2 ? '32px' : '10px' ?>;">
+                                <?= htmlspecialchars($item['text']) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+    <!-- 本文を表示 -->
+    <div id="blogContent"><?= $blog['content'] ?></div>
+
+        <!-- カテゴリを表示 -->
     <div id="categoryContainer">
         <?= !empty($blog['categories']) ? '#' . implode('   #', array_map('htmlspecialchars', $blog['categories'])) : '' ?>
     </div>
 
-    <!-- 目次 -->
-    <div id="tableOfContents">
-        <p class="mokuji">目次</p>
-        <ul>
-            <?php
-            // 目次の生成
-            $dom = new DOMDocument();
-            @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $blog['content'], LIBXML_NOERROR);
-            $headings = $dom->getElementsByTagName('*');
-
-            foreach ($headings as $heading) {
-                if (in_array($heading->nodeName, ['h1', 'h2'])) {
-                    $id = uniqid('heading_');
-                    $heading->setAttribute('id', $id);
-                    $level = $heading->nodeName === 'h1' ? 1 : 2;
-                    echo '<li><a href="#' . $id . '" style="margin-left: ' . ($level === 2 ? '32px' : '10px') . '">' .
-                        htmlspecialchars($heading->nodeValue) . '</a></li>';
-                }
-            }
-            ?>
-        </ul>
-    </div>
-
-    <!-- 本文を表示 -->
-    <div id="blogContent"><?= $blog['content'] ?></div>
 </div>
 
 <?php include '../common/footer.php'; ?>
