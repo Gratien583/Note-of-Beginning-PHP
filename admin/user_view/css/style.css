@@ -48,7 +48,7 @@ body {
 
 .blog-box {
     max-width: 386px;
-    height: 266px;
+    height: 300px;
     box-sizing: border-box;
     margin-bottom: 20px;
     background-color: #ffffff;
@@ -83,9 +83,16 @@ body {
 }
 
 .blog-title {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-top: 10px; /* タイトルとサムネイルの間隔を調整 */
+    font-size: 16px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    margin: 20px 0;
+    -webkit-box-orient: vertical;
+    line-height: 1.4;
+    height: calc(1.4em * 2);
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 
 .blog-box:hover .blog-thumbnail {
