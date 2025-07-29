@@ -72,8 +72,7 @@ try {
     <a href="#" onclick="logout()">ログアウト</a>
 </header>
 
-<div class="content-container" style="padding-top: 50px">
-    <h1>記事一覧</h1>
+<div class="content-container" style="padding-top: 90px">
 
     <!-- カテゴリ選択 -->
     <div class="search-container">
