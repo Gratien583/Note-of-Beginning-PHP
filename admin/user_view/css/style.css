@@ -84,7 +84,6 @@ body {
 
 .blog-title {
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 10px; /* タイトルとサムネイルの間隔を調整 */
 }
