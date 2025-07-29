@@ -1,4 +1,10 @@
 # Note-of-Beginning-PHP
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
+![Quill](https://img.shields.io/badge/Quill-0084FF?style=for-the-badge&logo=quill&logoColor=white)
+<br>
 **Note-of-Beginning** は、私が初めて企画から設計・開発までを手がけたブログ兼メモアプリです。
 
 ## 📖 名前の由来
