@@ -1,5 +1,5 @@
 <?php
-include '../config/config.php';
+include '../config/db.php';
 
 // ログイン状態の確認
 session_start();

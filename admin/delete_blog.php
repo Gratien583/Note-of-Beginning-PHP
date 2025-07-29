@@ -1,5 +1,5 @@
 <?php
-include '../config/config.php';
+include '../config/db.php';
 
 // GETパラメータから記事IDを取得
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {

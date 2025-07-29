@@ -1,5 +1,5 @@
 <?php
-include '../config/config.php';
+include '../config/db.php';
 
 $errors = []; // 各フィールドのエラーメッセージを格納
 

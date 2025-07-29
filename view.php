@@ -1,5 +1,5 @@
 <?php
-include 'config/config.php';
+include 'config/db.php';
 
 // 記事のIDをURLパラメータから取得
 $blogId = isset($_GET['id']) ? intval($_GET['id']) : null;

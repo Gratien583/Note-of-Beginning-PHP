@@ -1,25 +1,28 @@
 <?php
-include 'config/config.php';
-
+include 'config/db.php';
 
 // ブログ記事の取得
 $blogs = [];
-$searchKeyword = isset($_GET['search']) ? $_GET['search'] : '';
-$category = isset($_GET['category']) ? $_GET['category'] : '';
+$searchKeyword = $_GET['search'] ?? '';
+$category = $_GET['category'] ?? '';
 
 try {
     $sql = "SELECT * FROM blogs WHERE published = 1";
     $params = [];
 
-    // 検索キーワードが設定されている場合
+    // 検索キーワード
     if ($searchKeyword) {
         $sql .= " AND title LIKE :search";
         $params[':search'] = "%$searchKeyword%";
     }
 
-    // カテゴリが選択されている場合
+    // カテゴリによる絞り込み
     if ($category) {
-        $sql .= " AND :category IN (SELECT category_name FROM blog_categories WHERE blog_id = blogs.id)";
+        $sql .= " AND EXISTS (
+            SELECT 1 FROM blog_categories 
+            WHERE blog_categories.blog_id = blogs.id 
+            AND blog_categories.category_name = :category
+        )";
         $params[':category'] = $category;
     }
 
@@ -33,7 +36,6 @@ try {
 }
 
 // カテゴリ一覧の取得
-$categories = [];
 try {
     $stmt = $pdo->query("SELECT DISTINCT category_name FROM blog_categories");
     $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -84,18 +86,24 @@ try {
     <!-- ブログ記事のリスト -->
     <div id="blog-list" class="blog-container">
     <?php if (!empty($blogs)): ?>
-        <?php foreach ($blogs as $blog): ?>
-            <a href="view.php?id=<?= $blog['id'] ?>" class="blog-link">
-                <div class="blog-box">
-                    <?php if (!empty($blog['thumbnail'])): ?>
-                        <div class="thumbnail-container">
-                            <img src="<?= htmlspecialchars($blog['thumbnail']) ?>" alt="サムネイル" class="blog-thumbnail">
-                        </div>
-                    <?php endif; ?>
-                    <h2 class="blog-title"><?= htmlspecialchars($blog['title']) ?></h2>
-                </div>
-            </a>
-        <?php endforeach; ?>
+    <?php foreach ($blogs as $blog): ?>
+        <a href="view.php?id=<?= $blog['id'] ?>" class="blog-link">
+            <div class="blog-box">
+                <?php if (!empty($blog['thumbnail'])): ?>
+                    <div class="thumbnail-container">
+                        <?php
+                            $thumbnail = $blog['thumbnail'];
+                            if (strpos($thumbnail, '../uploads/') === 0) {
+                                $thumbnail = substr($thumbnail, 3);
+                            }
+                        ?>
+                        <img src="<?= htmlspecialchars($thumbnail) ?>" alt="サムネイル" class="blog-thumbnail">
+                    </div>
+                <?php endif; ?>
+                <h2 class="blog-title"><?= htmlspecialchars($blog['title']) ?></h2>
+            </div>
+        </a>
+    <?php endforeach; ?>
     <?php else: ?>
         <!-- <p>記事が見つかりませんでした。</p> -->
     <?php endif; ?>

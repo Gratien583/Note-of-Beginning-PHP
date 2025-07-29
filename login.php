@@ -1,5 +1,5 @@
 <?php
-include 'config/config.php';
+include 'config/db.php';
 
 // ログインフォームの処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

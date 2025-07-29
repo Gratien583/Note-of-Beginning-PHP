@@ -1,5 +1,5 @@
 <?php
-include 'config/config.php';
+include 'config/db.php';
 
 
 $error_message = "";

@@ -1,5 +1,5 @@
 <?php
-include '../config/config.php';
+include '../config/db.php';
 
 // ブログIDを取得
 $blogId = $_GET['id'] ?? null;
@@ -21,14 +21,34 @@ if ($blogId) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';
     $content = $_POST['content'] ?? '';
-    $thumbnail = $_POST['thumbnail'] ?? '';
     $categories = $_POST['selectedCategories'] ?? [];
+    $thumbnailPath = $_POST['currentThumbnail'] ?? ''; // もともとの画像パスを保持
+
+    // サムネイルが新しくアップロードされた場合
+    if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '../uploads/';
+        $fileName = basename($_FILES['thumbnail']['name']);
+        $uniqueName = uniqid() . '_' . $fileName;
+        $targetPath = $uploadDir . $uniqueName;
+
+        // アップロード先フォルダがなければ作成
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $targetPath)) {
+            $thumbnailPath = $targetPath;
+        } else {
+            echo '<script>alert("画像のアップロードに失敗しました");</script>';
+            exit;
+        }
+    }
 
     // ブログ記事の更新
     $stmt = $pdo->prepare("UPDATE blogs SET title = ?, content = ?, thumbnail = ? WHERE id = ?");
-    $stmt->execute([$title, $content, $thumbnail, $blogId]);
+    $stmt->execute([$title, $content, $thumbnailPath, $blogId]);
 
-    // カテゴリの更新
+    // カテゴリの更新（全削除→再追加）
     $pdo->prepare("DELETE FROM blog_categories WHERE blog_id = ?")->execute([$blogId]);
     foreach ($categories as $category) {
         $pdo->prepare("INSERT INTO blog_categories (blog_id, category_name) VALUES (?, ?)")
@@ -48,6 +68,7 @@ $selectedCategoriesStmt = $pdo->prepare("SELECT category_name FROM blog_categori
 $selectedCategoriesStmt->execute([$blogId]);
 $selectedCategories = $selectedCategoriesStmt->fetchAll(PDO::FETCH_COLUMN);
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -66,7 +87,7 @@ $selectedCategories = $selectedCategoriesStmt->fetchAll(PDO::FETCH_COLUMN);
 
     <div class="form-container">
         <h1>記事を編集</h1>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="blogId" value="<?= htmlspecialchars($blogId) ?>">
 
             <label for="title">タイトル:</label>
@@ -90,14 +111,15 @@ $selectedCategories = $selectedCategoriesStmt->fetchAll(PDO::FETCH_COLUMN);
                 <?php endforeach; ?>
             </div>
 
-            <label for="thumbnail">サムネイル URL:</label>
-            <input type="text" id="thumbnail" name="thumbnail" style="width: 100%;" value="<?= htmlspecialchars($blog['thumbnail']) ?>" required>
-            <div id="thumbnailPreview">
-                <?php if (!empty($blog['thumbnail'])): ?>
-                    <img src="<?= htmlspecialchars($blog['thumbnail']) ?>" alt="Thumbnail Preview">
-                <?php endif; ?>
-            </div>
+            <label for="thumbnail">サムネイル画像:</label>
+                <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
+                <input type="hidden" name="currentThumbnail" value="<?= htmlspecialchars($blog['thumbnail']) ?>">
 
+                <div id="thumbnailPreview">
+                <?php if (!empty($blog['thumbnail'])): ?>
+                    <img src="<?= htmlspecialchars($blog['thumbnail']) ?>" alt="Thumbnail Preview" style="max-width: 300px;">
+                <?php endif; ?>
+                </div>
             <button type="submit">記事を保存</button>
         </form>
     </div>
@@ -129,16 +151,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // サムネイルプレビュー更新
-    document.getElementById('thumbnail').addEventListener('input', function () {
-        var thumbnailPreview = document.getElementById('thumbnailPreview');
-        thumbnailPreview.innerHTML = '';
-        if (this.value.trim() !== '') {
-            var img = document.createElement('img');
-            img.src = this.value.trim();
-            img.alt = 'Thumbnail Preview';
-            thumbnailPreview.appendChild(img);
-        }
-    });
+   document.getElementById('thumbnail').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('thumbnailPreview');
+    preview.innerHTML = ''; // 前のプレビューをクリア
+
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.alt = 'サムネイルプレビュー';
+            img.style.maxWidth = '300px';
+            img.style.marginTop = '10px';
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.textContent = '画像ファイルを選択してください。';
+    }
+});
 
     // カテゴリ追加ボタンの処理
     var addCategoryButton = document.getElementById('addCategoryButton');

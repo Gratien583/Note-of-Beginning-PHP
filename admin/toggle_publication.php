@@ -1,5 +1,5 @@
 <?php
-include '../config/config.php';
+include '../config/db.php';
 
 // IDの取得と検証
 if (!isset($_GET['id'])) {
