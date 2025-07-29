@@ -183,6 +183,53 @@ document.getElementById('blogForm').addEventListener('submit', function () {
       alert('カテゴリ名を入力してください。');
     }
   });
+  // 「追加」ボタンでカテゴリをその場で追加する処理
+document.getElementById('addCategoryButton').addEventListener('click', function () {
+  var categoryInput = document.getElementById('newCategory');
+  var categoryName = categoryInput.value.trim();
+
+  if (categoryName !== '') {
+    // 同じカテゴリ名がすでにある場合は無視
+    if (document.getElementById(`category_${categoryName}`)) {
+      alert('そのカテゴリはすでに追加されています。');
+      return;
+    }
+
+    // チェックボックスとラベルを作成
+    var categoryContainer = document.getElementById('categoryCheckboxes');
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.name = 'selectedCategories[]';
+    checkbox.value = categoryName;
+    checkbox.id = `category_${categoryName}`;
+    checkbox.checked = true;
+
+    var label = document.createElement('label');
+    label.htmlFor = `category_${categoryName}`;
+    label.textContent = categoryName;
+
+    var deleteButton = document.createElement('button');
+    deleteButton.type = 'button';
+    deleteButton.textContent = '削除';
+    deleteButton.className = 'delete-category-button';
+    deleteButton.addEventListener('click', function () {
+      checkbox.remove();
+      label.remove();
+      deleteButton.remove();
+    });
+
+    // 表示
+    categoryContainer.appendChild(checkbox);
+    categoryContainer.appendChild(label);
+    categoryContainer.appendChild(deleteButton);
+    categoryContainer.appendChild(document.createElement('br'));
+
+    categoryInput.value = '';
+  } else {
+    alert('カテゴリ名を入力してください。');
+  }
+});
+
 
   // 画像プレビュー処理の追加
   document.getElementById('thumbnail').addEventListener('change', function (event) {
