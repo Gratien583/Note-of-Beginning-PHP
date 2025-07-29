@@ -13,7 +13,7 @@ $blogId = isset($_GET['id']) ? intval($_GET['id']) : null;
 // 記事データの取得
 $blog = null;
 if ($blogId) {
-    $stmt = $pdo->prepare("SELECT * FROM blogs WHERE id = :id AND published = 1");
+    $stmt = $pdo->prepare("SELECT * FROM blogs WHERE id = :id");
     $stmt->execute([':id' => $blogId]);
     $blog = $stmt->fetch(PDO::FETCH_ASSOC);
 
