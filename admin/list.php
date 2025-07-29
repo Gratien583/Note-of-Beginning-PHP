@@ -32,6 +32,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <th class="title">タイトル</th>
                     <th class="thumbnail-container">サムネイル</th>
+                    <th class="date">投稿日時</th>
                     <th class="status-cell">状態</th>
                     <th class="switching">操作</th>
                     <th class="edit-cell">編集</th>
@@ -47,6 +48,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <img src="<?= htmlspecialchars($blog['thumbnail']) ?>" alt="Thumbnail" class="blog-thumbnail">
                 </div>
             </td>
+            <td><?= htmlspecialchars($blog['created_at']) ?></td>
             <td class="status-cell <?= $blog['published'] ? 'status-published' : 'status-unpublished' ?>">
                 <?= $blog['published'] ? '公開中' : '非公開' ?>
             </td>
