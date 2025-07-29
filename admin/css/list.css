@@ -111,3 +111,9 @@ button.delete-button:hover {
 .edit-cell {
     text-align: center;
 }
+
+.blog-table th.date,
+.blog-table td:nth-child(3) {
+    width: 15%;
+    text-align: center;
+}
