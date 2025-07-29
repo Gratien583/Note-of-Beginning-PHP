@@ -14,7 +14,7 @@ $category = $_GET['category'] ?? '';
 
 $blogs = [];
 try {
-    $sql = "SELECT * FROM blogs WHERE published = 1";
+    $sql = "SELECT * FROM blogs";
     $params = [];
 
     if ($searchKeyword) {
