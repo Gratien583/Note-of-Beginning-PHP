@@ -148,5 +148,3 @@ https://github.com/Gratien583/Note-of-Beginning-js
 
 - 🐘 PHP + MySQL 版：サーバーサイドを PHP、データ保存に MySQL を使用  （このリポジトリ） 
 
-- 🐳 Docker 対応版 (β)  
-  [https://github.com/Gratien583/Note-of-Beginning-Docker](https://github.com/Gratien583/Note-of-Beginning-Docker)
